@@ -3,26 +3,26 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SmartGPT Architecture Flow</title>
+    <title>SmartGPT Business Workflow</title>
     <style>
         :root {
             color-scheme: light;
-            --ink: #182230;
-            --muted: #59677a;
-            --line: #c9d3e2;
+            --ink: #172033;
+            --muted: #5e6c80;
+            --line: #ccd6e5;
+            --page: #f4f7fb;
             --panel: #ffffff;
-            --page: #f5f7fb;
-            --ui: #2475c7;
-            --service: #1b8a6b;
-            --data: #b76716;
-            --ai: #7c4db0;
-            --state: #be3858;
-            --soft-ui: #e7f1fd;
-            --soft-service: #e6f6f0;
-            --soft-data: #fff2df;
-            --soft-ai: #f2ebfb;
-            --soft-state: #fde9ef;
-            --shadow: 0 18px 45px rgba(24, 34, 48, 0.10);
+            --blue: #246fc7;
+            --green: #14866b;
+            --orange: #bf711f;
+            --rose: #be3a5b;
+            --violet: #7356ba;
+            --soft-blue: #e8f1fc;
+            --soft-green: #e5f6ef;
+            --soft-orange: #fff1dd;
+            --soft-rose: #fde8ef;
+            --soft-violet: #f1ecfb;
+            --shadow: 0 18px 45px rgba(23, 32, 51, 0.10);
         }
 
         * {
@@ -38,9 +38,7 @@
             color: var(--ink);
             font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
             letter-spacing: 0;
-            background:
-                linear-gradient(180deg, #eef4fb 0, #f5f7fb 320px),
-                var(--page);
+            background: linear-gradient(180deg, #edf4fb 0, #f4f7fb 330px);
         }
 
         .page {
@@ -51,52 +49,51 @@
 
         .hero {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) auto;
-            gap: 24px;
+            grid-template-columns: minmax(0, 1fr) 300px;
+            gap: 28px;
             align-items: end;
-            margin-bottom: 22px;
+            margin-bottom: 26px;
         }
 
         .eyebrow {
             margin: 0 0 10px;
-            color: var(--ui);
+            color: var(--blue);
             font-size: 13px;
-            font-weight: 800;
+            font-weight: 850;
             text-transform: uppercase;
         }
 
         h1 {
             margin: 0;
-            max-width: 960px;
-            font-size: clamp(32px, 5vw, 58px);
+            max-width: 920px;
+            font-size: clamp(34px, 5vw, 62px);
             line-height: 1.02;
-            font-weight: 850;
+            font-weight: 900;
         }
 
         .lead {
-            max-width: 900px;
+            max-width: 880px;
             margin: 18px 0 0;
             color: var(--muted);
             font-size: 17px;
             line-height: 1.55;
         }
 
-        .meta-card {
-            width: 290px;
+        .summary {
             padding: 18px;
             border: 1px solid var(--line);
             border-radius: 8px;
-            background: rgba(255, 255, 255, 0.78);
+            background: rgba(255, 255, 255, 0.82);
             box-shadow: var(--shadow);
         }
 
-        .meta-card strong {
+        .summary strong {
             display: block;
             margin-bottom: 10px;
             font-size: 14px;
         }
 
-        .meta-card span {
+        .summary span {
             display: block;
             color: var(--muted);
             font-size: 13px;
@@ -107,7 +104,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin: 22px 0 28px;
+            margin-bottom: 28px;
         }
 
         .legend-item {
@@ -119,9 +116,9 @@
             border: 1px solid var(--line);
             border-radius: 8px;
             background: var(--panel);
-            color: #29384b;
+            color: #29384d;
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 800;
         }
 
         .swatch {
@@ -131,21 +128,17 @@
             background: currentColor;
         }
 
-        .legend-item.ui { color: var(--ui); }
-        .legend-item.service { color: var(--service); }
-        .legend-item.data { color: var(--data); }
-        .legend-item.ai { color: var(--ai); }
-        .legend-item.state { color: var(--state); }
+        .legend-item.user { color: var(--blue); }
+        .legend-item.smart { color: var(--green); }
+        .legend-item.record { color: var(--orange); }
+        .legend-item.history { color: var(--rose); }
+        .legend-item.answer { color: var(--violet); }
 
         .panel {
             border: 1px solid var(--line);
             border-radius: 8px;
             background: var(--panel);
             box-shadow: var(--shadow);
-        }
-
-        .diagram-panel {
-            overflow: hidden;
         }
 
         .panel-heading {
@@ -173,10 +166,10 @@
         .diagram-scroll {
             overflow-x: auto;
             padding: 18px;
-            background: linear-gradient(180deg, #ffffff, #f9fbfe);
+            background: linear-gradient(180deg, #fff, #fbfcff);
         }
 
-        svg.architecture {
+        svg {
             display: block;
             width: 100%;
             min-width: 1180px;
@@ -184,80 +177,74 @@
         }
 
         .node rect {
-            stroke-width: 1.5;
-            filter: drop-shadow(0 8px 12px rgba(24, 34, 48, 0.08));
+            stroke-width: 1.7;
+            filter: drop-shadow(0 8px 12px rgba(23, 32, 51, 0.08));
         }
 
         .node-title {
             fill: var(--ink);
-            font-size: 17px;
-            font-weight: 800;
+            font-size: 18px;
+            font-weight: 850;
         }
 
         .node-copy {
-            fill: #3f4e63;
+            fill: #405069;
             font-size: 13px;
-        }
-
-        .node-code {
-            fill: #657388;
-            font-size: 12px;
-            font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
         }
 
         .lane-title {
             fill: #27364a;
             font-size: 13px;
-            font-weight: 850;
+            font-weight: 900;
             text-transform: uppercase;
         }
 
         .arrow {
             fill: none;
-            stroke: #6d7c91;
-            stroke-width: 2.2;
+            stroke: #6e7e94;
+            stroke-width: 2.4;
             marker-end: url(#arrow);
         }
 
-        .arrow-soft {
+        .return-arrow {
             fill: none;
             stroke: #9aa8ba;
-            stroke-width: 1.8;
+            stroke-width: 2;
             stroke-dasharray: 7 7;
             marker-end: url(#arrowSoft);
         }
 
         .arrow-label {
-            fill: #56657a;
+            fill: #56667b;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
         }
 
-        .node.ui rect { fill: var(--soft-ui); stroke: var(--ui); }
-        .node.service rect { fill: var(--soft-service); stroke: var(--service); }
-        .node.data rect { fill: var(--soft-data); stroke: var(--data); }
-        .node.ai rect { fill: var(--soft-ai); stroke: var(--ai); }
-        .node.state rect { fill: var(--soft-state); stroke: var(--state); }
+        .node.user rect { fill: var(--soft-blue); stroke: var(--blue); }
+        .node.smart rect { fill: var(--soft-green); stroke: var(--green); }
+        .node.record rect { fill: var(--soft-orange); stroke: var(--orange); }
+        .node.history rect { fill: var(--soft-rose); stroke: var(--rose); }
+        .node.answer rect { fill: var(--soft-violet); stroke: var(--violet); }
 
-        .section-grid {
+        .details {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 18px;
             margin-top: 18px;
         }
 
-        .info-panel {
+        .detail-card {
             padding: 20px;
         }
 
-        .info-panel h2,
-        .source-map h2 {
+        .detail-card h2,
+        .return-flow h2 {
             margin: 0 0 14px;
             font-size: 21px;
             line-height: 1.2;
         }
 
-        .step-list {
+        .steps {
             display: grid;
             gap: 12px;
             margin: 0;
@@ -265,14 +252,13 @@
             list-style: none;
         }
 
-        .step-list li {
+        .steps li {
             display: grid;
             grid-template-columns: 34px minmax(0, 1fr);
             gap: 10px;
-            align-items: start;
         }
 
-        .step-list b {
+        .steps b {
             display: grid;
             place-items: center;
             width: 30px;
@@ -283,37 +269,32 @@
             font-size: 13px;
         }
 
-        .step-list span {
-            display: block;
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .step-list strong {
+        .steps strong {
             display: block;
             margin-bottom: 2px;
             color: var(--ink);
             font-size: 14px;
         }
 
-        .history-flow {
+        .steps span {
+            display: block;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .return-flow {
             margin-top: 18px;
             padding: 20px;
         }
 
-        .history-flow h2 {
-            margin: 0 0 16px;
-            font-size: 21px;
-        }
-
-        .history-steps {
+        .return-steps {
             display: grid;
             grid-template-columns: repeat(5, minmax(150px, 1fr));
             gap: 12px;
         }
 
-        .history-card {
+        .return-card {
             position: relative;
             min-height: 118px;
             padding: 15px;
@@ -322,7 +303,7 @@
             background: #fbfcff;
         }
 
-        .history-card:not(:last-child)::after {
+        .return-card:not(:last-child)::after {
             content: ">";
             position: absolute;
             top: 46px;
@@ -338,63 +319,17 @@
             z-index: 2;
         }
 
-        .history-card strong {
+        .return-card strong {
             display: block;
             margin-bottom: 8px;
             font-size: 14px;
         }
 
-        .history-card span {
+        .return-card span {
             display: block;
             color: var(--muted);
             font-size: 13px;
             line-height: 1.45;
-        }
-
-        .source-map {
-            margin-top: 18px;
-            padding: 20px;
-        }
-
-        .source-table {
-            width: 100%;
-            border-collapse: collapse;
-            overflow: hidden;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-
-        .source-table th,
-        .source-table td {
-            padding: 13px 14px;
-            border-bottom: 1px solid var(--line);
-            text-align: left;
-            vertical-align: top;
-        }
-
-        .source-table th {
-            background: #eef3f9;
-            color: #26364a;
-            font-size: 12px;
-            letter-spacing: 0;
-            text-transform: uppercase;
-        }
-
-        .source-table tr:last-child td {
-            border-bottom: 0;
-        }
-
-        code {
-            color: #223149;
-            font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
-            font-size: 0.92em;
-        }
-
-        .note {
-            margin: 14px 0 0;
-            color: var(--muted);
-            font-size: 13px;
-            line-height: 1.5;
         }
 
         @media (max-width: 980px) {
@@ -404,48 +339,19 @@
             }
 
             .hero,
-            .section-grid {
+            .details {
                 grid-template-columns: 1fr;
             }
 
-            .meta-card {
-                width: auto;
-            }
-
-            .history-steps {
+            .return-steps {
                 grid-template-columns: 1fr;
             }
 
-            .history-card:not(:last-child)::after {
+            .return-card:not(:last-child)::after {
                 top: auto;
                 right: 18px;
                 bottom: -12px;
                 transform: rotate(90deg);
-            }
-        }
-
-        @media print {
-            body {
-                background: #fff;
-            }
-
-            .page {
-                width: 100%;
-                padding: 0;
-            }
-
-            .panel,
-            .meta-card {
-                box-shadow: none;
-            }
-
-            .diagram-scroll {
-                overflow: visible;
-                padding: 10px;
-            }
-
-            svg.architecture {
-                min-width: 0;
             }
         }
     </style>
@@ -454,356 +360,230 @@
     <main class="page">
         <header class="hero">
             <div>
-                <p class="eyebrow">SmartGPT architecture</p>
-                <h1>UI Capture, Database Retrieval, and Response Rendering Flow</h1>
+                <p class="eyebrow">SmartGPT business workflow</p>
+                <h1>From Business Question To SmartGPT Answer</h1>
                 <p class="lead">
-                    This diagram follows the current Blazor server path in SmartGPT. It shows how a user's message is captured in the UI, persisted through the conversation store, enriched with live business data or cached context, composed into a response, saved again, and finally rendered back to the user.
+                    This view shows the business journey only: a user asks for help, SmartGPT checks the right company information, prepares a clear answer, keeps the conversation record, and shows the response back to the user.
                 </p>
             </div>
-            <aside class="meta-card" aria-label="Diagram summary">
-                <strong>Scope</strong>
-                <span>Message capture, chat orchestration, business data lookup, conversation persistence, response display, and history retrieval.</span>
+            <aside class="summary" aria-label="Diagram summary">
+                <strong>Purpose</strong>
+                <span>Explain how business questions, company records, conversation history, and final answers move through SmartGPT.</span>
             </aside>
         </header>
 
         <div class="legend" aria-label="Legend">
-            <span class="legend-item ui"><span class="swatch"></span>UI component</span>
-            <span class="legend-item service"><span class="swatch"></span>Application service</span>
-            <span class="legend-item state"><span class="swatch"></span>Conversation state</span>
-            <span class="legend-item data"><span class="swatch"></span>API or database</span>
-            <span class="legend-item ai"><span class="swatch"></span>AI composition</span>
+            <span class="legend-item user"><span class="swatch"></span>User action</span>
+            <span class="legend-item smart"><span class="swatch"></span>SmartGPT work</span>
+            <span class="legend-item record"><span class="swatch"></span>Business records</span>
+            <span class="legend-item history"><span class="swatch"></span>Conversation history</span>
+            <span class="legend-item answer"><span class="swatch"></span>User response</span>
         </div>
 
-        <section class="panel diagram-panel" aria-labelledby="live-flow-heading">
+        <section class="panel" aria-labelledby="main-flow-heading">
             <div class="panel-heading">
-                <h2 id="live-flow-heading">Live Message Flow</h2>
-                <p>Primary path from user input to visible SmartGPT response</p>
+                <h2 id="main-flow-heading">Main Business Flow</h2>
+                <p>How a new question becomes a visible answer</p>
             </div>
             <div class="diagram-scroll">
-                <svg class="architecture" viewBox="0 0 1500 1120" role="img" aria-labelledby="diagram-title diagram-desc">
-                    <title id="diagram-title">SmartGPT live message architecture flow</title>
-                    <desc id="diagram-desc">A flow chart showing browser input, Blazor orchestration, conversation persistence, intent detection, business data retrieval, response composition, assistant message persistence, and rendering.</desc>
+                <svg viewBox="0 0 1500 960" role="img" aria-labelledby="diagram-title diagram-desc">
+                    <title id="diagram-title">SmartGPT business workflow diagram</title>
+                    <desc id="diagram-desc">A business workflow showing how a user question is captured, saved, understood, matched with company records, turned into an answer, saved to the conversation, and shown to the user.</desc>
                     <defs>
                         <marker id="arrow" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto" markerUnits="strokeWidth">
-                            <path d="M2,2 L12,7 L2,12 Z" fill="#6d7c91"></path>
+                            <path d="M2,2 L12,7 L2,12 Z" fill="#6e7e94"></path>
                         </marker>
                         <marker id="arrowSoft" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto" markerUnits="strokeWidth">
                             <path d="M2,2 L12,7 L2,12 Z" fill="#9aa8ba"></path>
                         </marker>
                     </defs>
 
-                    <text class="lane-title" x="48" y="42">1. UI capture</text>
-                    <text class="lane-title" x="48" y="248">2. Persist user message</text>
-                    <text class="lane-title" x="48" y="472">3. Resolve data and compose response</text>
-                    <text class="lane-title" x="48" y="898">4. Persist assistant answer and render</text>
+                    <text class="lane-title" x="52" y="48">1. Question is raised</text>
+                    <text class="lane-title" x="52" y="265">2. Conversation is kept</text>
+                    <text class="lane-title" x="52" y="498">3. Business information is checked</text>
+                    <text class="lane-title" x="52" y="745">4. Answer is delivered</text>
 
-                    <g class="node ui">
-                        <rect x="48" y="70" width="220" height="118" rx="8"></rect>
-                        <text class="node-title" x="70" y="105">User browser</text>
-                        <text class="node-copy" x="70" y="132">Types a question,</text>
-                        <text class="node-copy" x="70" y="152">uploads a document,</text>
-                        <text class="node-code" x="70" y="173">or presses Enter</text>
+                    <g class="node user">
+                        <rect x="62" y="82" width="245" height="126" rx="8"></rect>
+                        <text class="node-title" x="86" y="119">User asks a question</text>
+                        <text class="node-copy" x="86" y="149">The user types a request</text>
+                        <text class="node-copy" x="86" y="169">about policies, quotes,</text>
+                        <text class="node-copy" x="86" y="189">claims, payments, or files.</text>
                     </g>
 
-                    <g class="node ui">
-                        <rect x="318" y="70" width="245" height="118" rx="8"></rect>
-                        <text class="node-title" x="340" y="105">InputBar.razor</text>
-                        <text class="node-copy" x="340" y="132">Builds ComposerSubmission</text>
-                        <text class="node-copy" x="340" y="152">from text plus attachment</text>
-                        <text class="node-code" x="340" y="173">OnSendMessage</text>
+                    <g class="node smart">
+                        <rect x="378" y="82" width="245" height="126" rx="8"></rect>
+                        <text class="node-title" x="402" y="119">SmartGPT receives it</text>
+                        <text class="node-copy" x="402" y="149">The request is accepted</text>
+                        <text class="node-copy" x="402" y="169">and prepared for the</text>
+                        <text class="node-copy" x="402" y="189">right business journey.</text>
                     </g>
 
-                    <g class="node ui">
-                        <rect x="614" y="70" width="260" height="118" rx="8"></rect>
-                        <text class="node-title" x="636" y="105">AssistantLayout</text>
-                        <text class="node-copy" x="636" y="132">SendMessage validates tokens</text>
-                        <text class="node-copy" x="636" y="152">and starts loading steps</text>
-                        <text class="node-code" x="636" y="173">SendMessage(input)</text>
+                    <g class="node smart">
+                        <rect x="694" y="82" width="245" height="126" rx="8"></rect>
+                        <text class="node-title" x="718" y="119">User access is checked</text>
+                        <text class="node-copy" x="718" y="149">SmartGPT confirms the</text>
+                        <text class="node-copy" x="718" y="169">user can continue and</text>
+                        <text class="node-copy" x="718" y="189">belongs to the company.</text>
                     </g>
 
-                    <path class="arrow" d="M268 129 H318"></path>
-                    <path class="arrow" d="M563 129 H614"></path>
+                    <path class="arrow" d="M307 145 H378"></path>
+                    <path class="arrow" d="M623 145 H694"></path>
 
-                    <g class="node state">
-                        <rect x="614" y="276" width="260" height="134" rx="8"></rect>
-                        <text class="node-title" x="636" y="311">ConversationState</text>
-                        <text class="node-copy" x="636" y="338">Adds the user message</text>
-                        <text class="node-copy" x="636" y="358">to active conversation</text>
-                        <text class="node-code" x="636" y="381">AddUserMessageAsync</text>
+                    <g class="node history">
+                        <rect x="694" y="300" width="245" height="126" rx="8"></rect>
+                        <text class="node-title" x="718" y="337">Question is saved</text>
+                        <text class="node-copy" x="718" y="367">The user's message is</text>
+                        <text class="node-copy" x="718" y="387">added to the current</text>
+                        <text class="node-copy" x="718" y="407">conversation record.</text>
                     </g>
 
-                    <g class="node service">
-                        <rect x="934" y="276" width="238" height="134" rx="8"></rect>
-                        <text class="node-title" x="956" y="311">ConversationStore</text>
-                        <text class="node-copy" x="956" y="338">Posts conversation id,</text>
-                        <text class="node-copy" x="956" y="358">metadata, and message</text>
-                        <text class="node-code" x="956" y="381">SaveMessageAsync</text>
+                    <g class="node history">
+                        <rect x="1010" y="300" width="245" height="126" rx="8"></rect>
+                        <text class="node-title" x="1034" y="337">History is updated</text>
+                        <text class="node-copy" x="1034" y="367">The conversation remains</text>
+                        <text class="node-copy" x="1034" y="387">available for follow-up</text>
+                        <text class="node-copy" x="1034" y="407">questions later.</text>
                     </g>
 
-                    <g class="node data">
-                        <rect x="1230" y="276" width="238" height="134" rx="8"></rect>
-                        <text class="node-title" x="1252" y="311">Conversation API / DB</text>
-                        <text class="node-copy" x="1252" y="338">Stores conversations,</text>
-                        <text class="node-copy" x="1252" y="358">messages, feedback,</text>
-                        <text class="node-copy" x="1252" y="378">cached API context</text>
+                    <path class="arrow" d="M817 208 V300"></path>
+                    <path class="arrow" d="M939 363 H1010"></path>
+
+                    <g class="node smart">
+                        <rect x="378" y="535" width="245" height="136" rx="8"></rect>
+                        <text class="node-title" x="402" y="572">Need is understood</text>
+                        <text class="node-copy" x="402" y="602">SmartGPT identifies</text>
+                        <text class="node-copy" x="402" y="622">whether the user needs</text>
+                        <text class="node-copy" x="402" y="642">data, guidance, export,</text>
+                        <text class="node-copy" x="402" y="662">prediction, or a file review.</text>
                     </g>
 
-                    <path class="arrow" d="M744 188 V276"></path>
-                    <path class="arrow" d="M874 343 H934"></path>
-                    <path class="arrow" d="M1172 343 H1230"></path>
-                    <text class="arrow-label" x="888" y="330">persist user turn</text>
-
-                    <g class="node service">
-                        <rect x="614" y="500" width="260" height="146" rx="8"></rect>
-                        <text class="node-title" x="636" y="535">ChatService</text>
-                        <text class="node-copy" x="636" y="562">Checks token balance,</text>
-                        <text class="node-copy" x="636" y="582">handles documents,</text>
-                        <text class="node-copy" x="636" y="602">routes intent branches</text>
-                        <text class="node-code" x="636" y="625">SendMessageAsync</text>
+                    <g class="node smart">
+                        <rect x="694" y="535" width="245" height="136" rx="8"></rect>
+                        <text class="node-title" x="718" y="572">Previous context is used</text>
+                        <text class="node-copy" x="718" y="602">If the user asks a follow-up,</text>
+                        <text class="node-copy" x="718" y="622">SmartGPT considers the</text>
+                        <text class="node-copy" x="718" y="642">latest relevant result from</text>
+                        <text class="node-copy" x="718" y="662">the same conversation.</text>
                     </g>
 
-                    <g class="node service">
-                        <rect x="318" y="500" width="245" height="146" rx="8"></rect>
-                        <text class="node-title" x="340" y="535">IntentService</text>
-                        <text class="node-copy" x="340" y="562">Extracts intent, lane,</text>
-                        <text class="node-copy" x="340" y="582">filters, quote draft,</text>
-                        <text class="node-copy" x="340" y="602">or cached-data flag</text>
-                        <text class="node-code" x="340" y="625">ExtractIntentAsync</text>
+                    <g class="node record">
+                        <rect x="1010" y="535" width="245" height="136" rx="8"></rect>
+                        <text class="node-title" x="1034" y="572">Company records are checked</text>
+                        <text class="node-copy" x="1034" y="602">SmartGPT looks at the</text>
+                        <text class="node-copy" x="1034" y="622">matching business records</text>
+                        <text class="node-copy" x="1034" y="642">for the company and user.</text>
                     </g>
 
-                    <path class="arrow" d="M614 150 H590 V573 H614"></path>
-                    <path class="arrow" d="M614 552 H563"></path>
-                    <path class="arrow-soft" d="M563 596 H614"></path>
-                    <text class="arrow-label" x="566" y="540">classify</text>
-                    <text class="arrow-label" x="566" y="620">IntentResult</text>
+                    <path class="arrow" d="M817 426 V486 H500 V535"></path>
+                    <path class="arrow" d="M623 603 H694"></path>
+                    <path class="arrow" d="M939 603 H1010"></path>
+                    <text class="arrow-label" x="636" y="590">if useful</text>
+                    <text class="arrow-label" x="952" y="590">when records are needed</text>
 
-                    <g class="node service">
-                        <rect x="934" y="500" width="238" height="146" rx="8"></rect>
-                        <text class="node-title" x="956" y="535">ApiService</text>
-                        <text class="node-copy" x="956" y="562">Builds filtered payload</text>
-                        <text class="node-copy" x="956" y="582">with system, company,</text>
-                        <text class="node-copy" x="956" y="602">user, mode, filters</text>
-                        <text class="node-code" x="956" y="625">GetFilteredDataAsync</text>
+                    <g class="node answer">
+                        <rect x="378" y="780" width="245" height="126" rx="8"></rect>
+                        <text class="node-title" x="402" y="817">Answer is prepared</text>
+                        <text class="node-copy" x="402" y="847">The information is turned</text>
+                        <text class="node-copy" x="402" y="867">into clear business language</text>
+                        <text class="node-copy" x="402" y="887">for the user.</text>
                     </g>
 
-                    <g class="node data">
-                        <rect x="1230" y="500" width="238" height="146" rx="8"></rect>
-                        <text class="node-title" x="1252" y="535">Business API / DB</text>
-                        <text class="node-copy" x="1252" y="562">Returns quotes,</text>
-                        <text class="node-copy" x="1252" y="582">risk notes, debit notes,</text>
-                        <text class="node-copy" x="1252" y="602">claims, or quote result</text>
-                        <text class="node-code" x="1252" y="625">mode=QUOTE|CLAIMS...</text>
+                    <g class="node history">
+                        <rect x="694" y="780" width="245" height="126" rx="8"></rect>
+                        <text class="node-title" x="718" y="817">Answer is saved</text>
+                        <text class="node-copy" x="718" y="847">The reply is added to</text>
+                        <text class="node-copy" x="718" y="867">the same conversation</text>
+                        <text class="node-copy" x="718" y="887">for future reference.</text>
                     </g>
 
-                    <path class="arrow" d="M874 573 H934"></path>
-                    <path class="arrow" d="M1172 573 H1230"></path>
-                    <path class="arrow-soft" d="M1230 616 H1172"></path>
-                    <text class="arrow-label" x="886" y="560">RequiresApiCall</text>
-                    <text class="arrow-label" x="1180" y="640">raw JSON</text>
-
-                    <g class="node state">
-                        <rect x="934" y="702" width="238" height="132" rx="8"></rect>
-                        <text class="node-title" x="956" y="737">Cached API context</text>
-                        <text class="node-copy" x="956" y="764">Saves latest raw JSON</text>
-                        <text class="node-copy" x="956" y="784">and query parameters</text>
-                        <text class="node-code" x="956" y="807">SaveApiResultAsync</text>
+                    <g class="node user">
+                        <rect x="1010" y="780" width="245" height="126" rx="8"></rect>
+                        <text class="node-title" x="1034" y="817">User sees the result</text>
+                        <text class="node-copy" x="1034" y="847">The response appears in</text>
+                        <text class="node-copy" x="1034" y="867">the chat, with any useful</text>
+                        <text class="node-copy" x="1034" y="887">file or decision support.</text>
                     </g>
 
-                    <path class="arrow" d="M1053 646 V702"></path>
-                    <path class="arrow-soft" d="M1172 768 C1210 768 1210 430 1230 403"></path>
-                    <text class="arrow-label" x="1194" y="720">save last_api_response_json</text>
-
-                    <g class="node ai">
-                        <rect x="318" y="702" width="245" height="132" rx="8"></rect>
-                        <text class="node-title" x="340" y="737">OpenAI compatible API</text>
-                        <text class="node-copy" x="340" y="764">Optional response model</text>
-                        <text class="node-copy" x="340" y="784">or heuristic fallback</text>
-                        <text class="node-code" x="340" y="807">/responses</text>
-                    </g>
-
-                    <g class="node ai">
-                        <rect x="614" y="702" width="260" height="132" rx="8"></rect>
-                        <text class="node-title" x="636" y="737">ResponseComposer</text>
-                        <text class="node-copy" x="636" y="764">Turns JSON or general</text>
-                        <text class="node-copy" x="636" y="784">knowledge into text</text>
-                        <text class="node-code" x="636" y="807">ComposeFromApiJsonAsync</text>
-                    </g>
-
-                    <g class="node service">
-                        <rect x="1230" y="702" width="238" height="132" rx="8"></rect>
-                        <text class="node-title" x="1252" y="737">ChatResponse</text>
-                        <text class="node-copy" x="1252" y="764">Response text plus</text>
-                        <text class="node-copy" x="1252" y="784">download link or</text>
-                        <text class="node-copy" x="1252" y="804">prediction payload</text>
-                    </g>
-
-                    <path class="arrow" d="M744 646 V702"></path>
-                    <path class="arrow" d="M614 768 H563"></path>
-                    <path class="arrow-soft" d="M563 810 H614"></path>
-                    <path class="arrow" d="M874 768 H934"></path>
-                    <path class="arrow" d="M1172 768 H1230"></path>
-                    <text class="arrow-label" x="883" y="754">cached data follow-up</text>
-
-                    <g class="node state">
-                        <rect x="614" y="928" width="260" height="132" rx="8"></rect>
-                        <text class="node-title" x="636" y="963">ConversationState</text>
-                        <text class="node-copy" x="636" y="990">Adds assistant message</text>
-                        <text class="node-copy" x="636" y="1010">to active conversation</text>
-                        <text class="node-code" x="636" y="1033">AddAssistantMessageAsync</text>
-                    </g>
-
-                    <g class="node service">
-                        <rect x="934" y="928" width="238" height="132" rx="8"></rect>
-                        <text class="node-title" x="956" y="963">ConversationStore</text>
-                        <text class="node-copy" x="956" y="990">Persists assistant</text>
-                        <text class="node-copy" x="956" y="1010">answer and metadata</text>
-                        <text class="node-code" x="956" y="1033">SaveMessageAsync</text>
-                    </g>
-
-                    <g class="node ui">
-                        <rect x="1230" y="928" width="238" height="132" rx="8"></rect>
-                        <text class="node-title" x="1252" y="963">ChatWindow UI</text>
-                        <text class="node-copy" x="1252" y="990">Renders messages with</text>
-                        <text class="node-copy" x="1252" y="1010">MessageItem bubbles,</text>
-                        <text class="node-copy" x="1252" y="1030">downloads, feedback</text>
-                    </g>
-
-                    <path class="arrow" d="M1230 768 H1188 V890 H744 V928"></path>
-                    <path class="arrow" d="M874 994 H934"></path>
-                    <path class="arrow" d="M1172 994 H1230"></path>
-                    <path class="arrow-soft" d="M1053 928 V878 H1349 V410"></path>
-                    <text class="arrow-label" x="885" y="980">persist assistant turn</text>
-                    <text class="arrow-label" x="1180" y="980">render saved response</text>
+                    <path class="arrow" d="M1132 671 V724 H500 V780"></path>
+                    <path class="arrow" d="M623 843 H694"></path>
+                    <path class="arrow" d="M939 843 H1010"></path>
+                    <path class="return-arrow" d="M1132 780 V705 H1268 V363 H1255"></path>
+                    <text class="arrow-label" x="1260" y="690">keeps the record complete</text>
                 </svg>
             </div>
         </section>
 
-        <section class="section-grid" aria-label="Detailed flow explanation">
-            <article class="panel info-panel">
-                <h2>How Data Is Captured</h2>
-                <ol class="step-list">
+        <section class="details" aria-label="Business explanation">
+            <article class="panel detail-card">
+                <h2>How The Question Is Captured</h2>
+                <ol class="steps">
                     <li>
                         <b>1</b>
-                        <span><strong>Browser input</strong>The user types a message, presses Enter, clicks Send, or attaches a supported file in <code>InputBar.razor</code>.</span>
+                        <span><strong>The user asks</strong>A business user enters a question, request, or file for SmartGPT to review.</span>
                     </li>
                     <li>
                         <b>2</b>
-                        <span><strong>Composer object</strong><code>InputBar.Send</code> creates a <code>ComposerSubmission</code> containing message text, shortcut, and optional <code>DocumentAttachment</code>.</span>
+                        <span><strong>The request is accepted</strong>SmartGPT gathers the question and connects it to the current user, company, and conversation.</span>
                     </li>
                     <li>
                         <b>3</b>
-                        <span><strong>Layout orchestration</strong><code>AssistantLayout.SendMessage</code> blocks exhausted tokens, starts loading steps, and creates the display message.</span>
+                        <span><strong>The conversation is updated</strong>The user's message is kept in the conversation so the full business discussion remains available.</span>
                     </li>
                     <li>
                         <b>4</b>
-                        <span><strong>User turn persistence</strong><code>ConversationState.AddUserMessageAsync</code> adds the message locally and <code>ConversationStore.SaveMessageAsync</code> posts it to the configured conversation API/database.</span>
+                        <span><strong>The business need is identified</strong>SmartGPT decides whether the user needs a record lookup, general guidance, a report, a prediction, or a document review.</span>
                     </li>
                 </ol>
             </article>
 
-            <article class="panel info-panel">
-                <h2>How The Response Is Retrieved And Shown</h2>
-                <ol class="step-list">
+            <article class="panel detail-card">
+                <h2>How The Answer Is Retrieved And Shown</h2>
+                <ol class="steps">
                     <li>
                         <b>1</b>
-                        <span><strong>Intent and data routing</strong><code>ChatService.SendMessageAsync</code> calls <code>IntentService</code> to decide whether to use live business data, cached data, general knowledge, document reading, export, quote creation, or prediction.</span>
+                        <span><strong>Relevant context is checked</strong>SmartGPT first considers whether the answer can use the latest conversation context.</span>
                     </li>
                     <li>
                         <b>2</b>
-                        <span><strong>Database-backed result</strong>For data questions, <code>ApiService.GetFilteredDataAsync</code> posts filters to the business API, which retrieves quotes, risk notes, debit notes, or claims from the backend database.</span>
+                        <span><strong>Company records are reviewed</strong>When live business information is needed, SmartGPT checks the matching company records for policies, quotes, claims, payments, or operations.</span>
                     </li>
                     <li>
                         <b>3</b>
-                        <span><strong>Response composition</strong><code>ResponseComposerService</code> converts raw JSON into user-facing text through an OpenAI-compatible response call when configured, otherwise it falls back to local summarization.</span>
+                        <span><strong>A clear response is prepared</strong>The result is converted into practical business language rather than raw record details.</span>
                     </li>
                     <li>
                         <b>4</b>
-                        <span><strong>Assistant turn persistence and render</strong><code>ConversationState.AddAssistantMessageAsync</code> saves the assistant response through <code>ConversationStore.SaveMessageAsync</code>, then <code>ChatWindow.razor</code> loops over <code>Conversation.Messages</code> and <code>MessageItem.razor</code> shows the response bubble.</span>
+                        <span><strong>The answer is shown</strong>The reply is saved to the conversation and displayed to the user in the same chat.</span>
                     </li>
                 </ol>
             </article>
         </section>
 
-        <section class="panel history-flow" aria-labelledby="history-heading">
-            <h2 id="history-heading">Stored Conversation Retrieval Path</h2>
-            <div class="history-steps">
-                <article class="history-card">
-                    <strong>App starts or reloads</strong>
-                    <span><code>AssistantLayout.OnInitializedAsync</code> requests the user's saved conversations.</span>
+        <section class="panel return-flow" aria-labelledby="return-heading">
+            <h2 id="return-heading">When The User Comes Back Later</h2>
+            <div class="return-steps">
+                <article class="return-card">
+                    <strong>User returns</strong>
+                    <span>The user opens SmartGPT again and is recognized in the business workspace.</span>
                 </article>
-                <article class="history-card">
-                    <strong>State requests data</strong>
-                    <span><code>ConversationState.EnsureLoadedAsync</code> gets the current user and asks the store to load history.</span>
+                <article class="return-card">
+                    <strong>Past discussions are found</strong>
+                    <span>SmartGPT brings back the user's saved conversation list.</span>
                 </article>
-                <article class="history-card">
-                    <strong>Store posts identity</strong>
-                    <span><code>ConversationStore.LoadAsync</code> sends <code>company_id</code>, <code>user_id</code>, <code>system_id</code>, and <code>branch_id</code>.</span>
+                <article class="return-card">
+                    <strong>A conversation is selected</strong>
+                    <span>The user chooses an earlier discussion or starts a new one.</span>
                 </article>
-                <article class="history-card">
-                    <strong>Conversation DB returns</strong>
-                    <span>The API returns <code>conversations[]</code> with messages, cached API JSON, query parameters, and pending quote state.</span>
+                <article class="return-card">
+                    <strong>Saved messages appear</strong>
+                    <span>The previous questions and answers are shown in order.</span>
                 </article>
-                <article class="history-card">
-                    <strong>UI displays history</strong>
-                    <span><code>ChatSidebar</code> lists threads. <code>ChatWindow</code> renders the selected thread's saved messages.</span>
+                <article class="return-card">
+                    <strong>Follow-up can continue</strong>
+                    <span>The user can ask the next question with the earlier context still available.</span>
                 </article>
             </div>
-            <p class="note">The repo also contains sample or runtime-looking files under <code>App_Data/conversation-store</code>, but the current <code>ConversationStore</code> implementation persists and retrieves conversations through configured HTTP endpoints.</p>
-        </section>
-
-        <section class="panel source-map" aria-labelledby="source-heading">
-            <h2 id="source-heading">Source Map</h2>
-            <table class="source-table">
-                <thead>
-                    <tr>
-                        <th>Responsibility</th>
-                        <th>Main source touchpoints</th>
-                        <th>Data passed forward</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Capture message and file</td>
-                        <td><code>Components/InputBar.razor</code>, <code>Models/ChatModels.cs</code></td>
-                        <td><code>ComposerSubmission</code>, <code>DocumentAttachment</code></td>
-                    </tr>
-                    <tr>
-                        <td>Coordinate UI send flow</td>
-                        <td><code>Components/AssistantLayout.razor</code></td>
-                        <td><code>ChatRequest</code>, loading progress, active conversation id</td>
-                    </tr>
-                    <tr>
-                        <td>Maintain conversation state</td>
-                        <td><code>Services/ConversationState.cs</code></td>
-                        <td><code>Conversation</code>, <code>ChatMessage</code>, <code>LastApiResponseJson</code></td>
-                    </tr>
-                    <tr>
-                        <td>Persist and retrieve chat history</td>
-                        <td><code>Services/ConversationStore.cs</code></td>
-                        <td>Conversation headers, messages, feedback, cached API context</td>
-                    </tr>
-                    <tr>
-                        <td>Run chat business logic</td>
-                        <td><code>Services/ChatService.cs</code>, <code>Services/IntentService.cs</code></td>
-                        <td><code>IntentResult</code>, filters, quote draft, export columns, prediction type</td>
-                    </tr>
-                    <tr>
-                        <td>Retrieve business records</td>
-                        <td><code>Services/ApiService.cs</code></td>
-                        <td><code>ApiResult.RawJson</code>, normalized JSON, query parameters</td>
-                    </tr>
-                    <tr>
-                        <td>Compose final answer</td>
-                        <td><code>Services/ResponseComposerService.cs</code>, <code>Services/PredictionService.cs</code>, <code>Services/DocumentReaderService.cs</code></td>
-                        <td><code>ChatResponse.Response</code>, download URL, prediction result</td>
-                    </tr>
-                    <tr>
-                        <td>Render response to user</td>
-                        <td><code>Components/ChatWindow.razor</code>, <code>Components/MessageItem.razor</code></td>
-                        <td>Visible message bubble, prediction table, download link, feedback buttons</td>
-                    </tr>
-                </tbody>
-            </table>
         </section>
     </main>
 </body>
